@@ -1,0 +1,12 @@
+{
+  "name": "react_native_todolist",
+  "displayName": "react_native_todolist",
+  "expo": {
+    "name": "react_native_todolist",
+    "slug": "react_native_todolist",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
