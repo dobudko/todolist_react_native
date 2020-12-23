@@ -8,6 +8,8 @@ import {
 } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { TextInput } from 'react-native-gesture-handler'
+import { useNavigation } from '@react-navigation/native'
+import AppButton from '../components/buttons/AppButton'
 import CheckButton from '../components/buttons/CheckButton'
 import SharedListCover from '../components/SharedListCover'
 import { listsSelector, sharedListsSelector } from '../redux/selectors'
@@ -54,6 +56,8 @@ const ListsScreen = () => {
   const [newListTitle, setNewListTitle] = useState('')
 
   const deviceDimensions = useWindowDimensions()
+
+  const navigation = useNavigation()
 
   const { lists } = useSelector(listsSelector)
 
@@ -102,7 +106,7 @@ const ListsScreen = () => {
           </View>
         </View>
       ) : null}
-      {sharedLists ? (
+      {sharedLists.length > 0 ? (
         <View>
           <Text style={styles.listsTitleText}>shared lists</Text>
           {sharedLists.map((list) => {
@@ -112,6 +116,10 @@ const ListsScreen = () => {
           })}
         </View>
       ) : null}
+      <AppButton
+        onPress={() => navigation.navigate('Profile')}
+        title="Profile"
+      />
     </ScrollView>
   )
 }

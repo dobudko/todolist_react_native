@@ -48,3 +48,8 @@ export interface AvailableListsType {
   lists: ListsType[]
   sharedLists: SharedLists[]
 }
+
+export interface clearCompletedAction {
+  type: string
+  payload: { id: string }
+}

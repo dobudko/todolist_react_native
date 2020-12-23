@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import * as SecureStore from 'expo-secure-store'
+import { MenuProvider } from 'react-native-popup-menu'
 import Navigator from './screens/Navigator'
 import callApi from './api'
 import { milis, seconds, timeForUpdate } from './constants/time'
@@ -43,7 +44,11 @@ const App = () => {
     }
   })
 
-  return <Navigator />
+  return (
+    <MenuProvider>
+      <Navigator />
+    </MenuProvider>
+  )
 }
 
 export default App

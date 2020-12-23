@@ -23,3 +23,9 @@ export function sharingAvailableUsersSelector(state: AppState) {
     sharingAvailableUsers: state.sharingAvailableUsers,
   }
 }
+
+export function todosSelector(state: AppState) {
+  return {
+    todos: state.todos,
+  }
+}

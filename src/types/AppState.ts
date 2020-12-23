@@ -1,4 +1,5 @@
 import { ListsType } from '../redux/types'
+import TodoType from './TodoType'
 import UserType from './UserType'
 
 export default interface AppState {
@@ -6,4 +7,5 @@ export default interface AppState {
   lists: Array<ListsType>
   sharedLists: Array<ListsType>
   sharingAvailableUsers: Array<UserType>
+  todos: Array<TodoType>
 }
