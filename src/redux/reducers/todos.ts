@@ -22,10 +22,7 @@ const todos = (state = initialState, action: ActionType): Array<TodoType> => {
       return [...sortList(action.payload as Array<TodoType>)]
 
     case ADD_TODO_SUCCESSED:
-      if (
-        state.find((todo) => todo.id === (action.payload as TodoType).id) ||
-        state[0].listId !== (action.payload as TodoType).listId
-      ) {
+      if (state.find((todo) => todo.id === (action.payload as TodoType).id)) {
         return state
       }
       return [...state, action.payload as TodoType]

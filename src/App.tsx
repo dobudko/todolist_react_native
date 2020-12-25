@@ -11,13 +11,17 @@ const App = () => {
   const dispatch = useDispatch()
 
   const updateToken = async () => {
-    SecureStore.getItemAsync('deadline').then((res) => {
+    SecureStore.getItemAsync('deadline').then(async (res) => {
       if (res) {
         const deadline = res.split(',').join('')
         if (deadline && parseInt(deadline, 10) + timeForUpdate < Date.now()) {
           callApi('refresh', {
             method: 'POST',
-            body: { refreshToken: window.localStorage.getItem('refreshToken') },
+            body: {
+              refreshToken: JSON.stringify(
+                await SecureStore.getItemAsync('refreshToken')
+              ),
+            },
           }).then((promise) => {
             if (promise.payload) {
               SecureStore.setItemAsync('deadline', Date.now().toLocaleString())

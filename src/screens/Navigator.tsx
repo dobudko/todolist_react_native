@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler'
-import * as React from 'react'
+import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { useSelector } from 'react-redux'
@@ -10,6 +10,7 @@ import RegisterScreen from './RegisterScreen'
 import ProfileScreen from './ProfileScreen'
 import ListsScreen from './ListsScreen'
 import TodolistScreen from './TodolistScreen'
+import ShareWithScreen from './ShareWithScreen'
 
 type RootStackParamList = {
   Home: undefined
@@ -18,6 +19,8 @@ type RootStackParamList = {
   Login: undefined
   Lists: undefined
   Todolist: { listId: string }
+  ShareWith: { listId: string }
+  Example: undefined
 }
 
 const Stack = createStackNavigator<RootStackParamList>()
@@ -32,6 +35,7 @@ const Navigator = () => {
         {login ? (
           <>
             <Stack.Screen name="Lists" component={ListsScreen} />
+            <Stack.Screen name="ShareWith" component={ShareWithScreen} />
             <Stack.Screen name="Todolist" component={TodolistScreen} />
             <Stack.Screen name="Profile" component={ProfileScreen} />
           </>

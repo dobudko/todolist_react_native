@@ -12,9 +12,14 @@ import {
   editTodo,
   directlyEditTodo,
   addTodo,
+  directlyClearComplete,
+  directlyCreateTodo,
+  directlyDeleteTodo,
 } from '../redux/actions'
 import Todo from '../components/Todo'
 import CheckButton from '../components/buttons/CheckButton'
+import createSocket from '../api/socket'
+import fetchNotification from '../api/notification'
 
 const styles = StyleSheet.create({
   container: {
@@ -53,6 +58,23 @@ const TodolistScreen = () => {
   useEffect(() => {
     dispatch(getListTodos(route.params.listId))
   }, [])
+
+  useEffect(() => {
+    createSocket().then((socket) => {
+      socket.on('todo_is_created', (createdTodo: TodoType) => {
+        dispatch(directlyCreateTodo(createdTodo))
+      })
+      socket.on('todo_is_deleted', (todoId: string) => {
+        dispatch(directlyDeleteTodo(todoId))
+      })
+      socket.on('todo_is_edited', (editedTodo: TodoType) => {
+        dispatch(directlyEditTodo(editedTodo))
+      })
+      socket.on('done_todos_is_cleared', (listId: string) => {
+        dispatch(directlyClearComplete(listId))
+      })
+    })
+  })
 
   const editTodoTitle = (id: string, newTitle: string) => {
     const editedTodo = todos.filter((todo) => todo.id === id)[0]

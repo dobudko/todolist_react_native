@@ -45,6 +45,7 @@ const ListCover = ({ id, title }: ListCoverProps) => {
         <Text
           numberOfLines={1}
           onPress={() => navigation.navigate('Todolist', { listId: id })}
+          onLongPress={() => navigation.navigate('ShareWith', { listId: id })}
           style={styles.listTitleText}
         >
           {title}

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1038617224781",
+    "project_id": "todolist-rn-devico",
+    "storage_bucket": "todolist-rn-devico.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1038617224781:android:d31a52edaa778a80629e04",
+        "android_client_info": {
+          "package_name": "com.reactnativetodolist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1038617224781-4bu66165rfbm7g61gmj08u4an9c6re0n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTdAHl8iME6Oj3ROE_kNW5n1IbLwHph9k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1038617224781-4bu66165rfbm7g61gmj08u4an9c6re0n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

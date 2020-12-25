@@ -1,4 +1,5 @@
 import { takeLatest, call, put } from 'redux-saga/effects'
+import fetchNotification from '../../api/notification'
 import callApi from '../../api'
 import {
   GET_LIST_TODOS_FAILED,
@@ -45,6 +46,7 @@ function* addTodo(action: ActionType) {
 
   if (result.status === 200) {
     yield put({ type: ADD_TODO_SUCCESSED, payload: result.payload })
+    yield call(fetchNotification, 'Todolist', 'todo is created')
   } else {
     yield put({ type: ADD_TODO_FAILED, payload: result.payload })
   }
@@ -56,6 +58,7 @@ function* deleteTodo(action: ActionType) {
   })
   if (result.status === 200) {
     yield put({ type: DELETE_TODO_SUCCESSED, payload: action.payload })
+    yield call(fetchNotification, 'Todolist', 'todo is deleted')
   } else {
     yield put({ type: DELETE_TODO_FAILED, payload: result.payload })
   }
@@ -73,6 +76,7 @@ function* editTodo(action: ActionType) {
 
   if (result.status === 200) {
     yield put({ type: EDIT_TODO_SUCCESSED, payload: result.payload })
+    yield call(fetchNotification, 'Todolist', 'todo is edited')
   } else {
     yield put({ type: EDIT_TODO_FAILED, payload: result.payload })
   }

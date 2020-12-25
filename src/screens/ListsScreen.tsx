@@ -16,6 +16,7 @@ import { listsSelector, sharedListsSelector } from '../redux/selectors'
 import ListCover from '../components/ListCover'
 import { getUserLists, getUserSharedLists, addList } from '../redux/actions'
 import AddButton from '../components/buttons/AddButton'
+import { pushNotifications } from '../services'
 
 const styles = StyleSheet.create({
   container: {
@@ -49,6 +50,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 })
+
+pushNotifications.configure()
 
 const ListsScreen = () => {
   const [listIsAdding, setListIsAdding] = useState(false)
