@@ -9,4 +9,7 @@ applyNativeModulesSettingsGradle(settings)
 include ':react-native-push-notification'
 project(':react-native-push-notification').projectDir = file('../node_modules/react-native-push-notification/android')
 
+include ':@react-native-firebase_analytics'
+project(':@react-native-firebase_analytics').projectDir = file('../node_modules/@react-native-firebase/analytics/android')
+
 include ':app'

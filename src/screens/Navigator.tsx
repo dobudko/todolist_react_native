@@ -1,8 +1,9 @@
 import 'react-native-gesture-handler'
-import React from 'react'
-import { NavigationContainer } from '@react-navigation/native'
+import React, { RefObject, useRef } from 'react'
+import { NavigationContainer, NavigationState } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { useSelector } from 'react-redux'
+import * as firebase from 'react-native-firebase'
 import { userSelector } from '../redux/selectors'
 import HomeScreen from './HomeScreen'
 import LoginScreen from './LoginScreen'
@@ -26,11 +27,27 @@ type RootStackParamList = {
 const Stack = createStackNavigator<RootStackParamList>()
 
 const Navigator = () => {
+  const routeNameRef = useRef()
+  const navigationRef: RefObject<any> = useRef()
+
   const { user } = useSelector(userSelector)
   const { login } = user
 
   return (
-    <NavigationContainer>
+    <NavigationContainer
+      ref={navigationRef}
+      onReady={() => {
+        routeNameRef.current = navigationRef.current.getCurrentRoute().name
+      }}
+      onStateChange={async () => {
+        const previousRouteName = routeNameRef.current
+        const currentRouteName = navigationRef.current.getCurrentRoute().name
+
+        if (previousRouteName !== currentRouteName) {
+          firebase.analytics().setCurrentScreen(currentRouteName)
+        }
+      }}
+    >
       <Stack.Navigator>
         {login ? (
           <>

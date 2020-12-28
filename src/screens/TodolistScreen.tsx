@@ -5,6 +5,7 @@ import DraggableFlatList, {
   RenderItemParams,
 } from 'react-native-draggable-flatlist'
 import { useDispatch, useSelector } from 'react-redux'
+import * as firebase from 'react-native-firebase'
 import TodoType from '../types/TodoType'
 import { todosSelector } from '../redux/selectors'
 import {
@@ -57,7 +58,7 @@ const TodolistScreen = () => {
 
   useEffect(() => {
     dispatch(getListTodos(route.params.listId))
-  }, [])
+  }, [dispatch, route.params.listId])
 
   useEffect(() => {
     createSocket().then((socket) => {
@@ -76,10 +77,14 @@ const TodolistScreen = () => {
     })
   })
 
-  const editTodoTitle = (id: string, newTitle: string) => {
+  const editTodoTitle = async (id: string, newTitle: string) => {
     const editedTodo = todos.filter((todo) => todo.id === id)[0]
     editedTodo.title = newTitle
     dispatch(editTodo(editedTodo))
+    await fetchNotification('Todolist', 'todo is edited')
+    firebase.analytics().logEvent('edit_todo', {
+      id,
+    })
   }
 
   const changeTodoStatus = (id: string) => {
@@ -120,7 +125,7 @@ const TodolistScreen = () => {
     dispatch(editTodo(editedTodo))
   }
 
-  const createTodo = () => {
+  const createTodo = async () => {
     let position
     if (todos.length > 0) {
       const todosCopy = todos.slice()
@@ -130,6 +135,10 @@ const TodolistScreen = () => {
     }
     dispatch(addTodo(newTodoTitle, position, route.params.listId))
     setNewTodoTitle('')
+    await fetchNotification('Todolist', 'todo is created')
+    firebase.analytics().logEvent('create_todo', {
+      id: todos[todos.length - 1],
+    })
   }
 
   return (

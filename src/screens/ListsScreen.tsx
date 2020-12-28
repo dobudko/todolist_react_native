@@ -70,11 +70,11 @@ const ListsScreen = () => {
 
   useEffect(() => {
     dispatch(getUserLists())
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
     dispatch(getUserSharedLists())
-  }, [])
+  }, [dispatch])
 
   const handleAddList = () => {
     if (newListTitle) {

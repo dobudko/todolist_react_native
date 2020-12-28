@@ -14,8 +14,10 @@ import {
   MenuTrigger,
 } from 'react-native-popup-menu'
 import { useDispatch } from 'react-redux'
+import * as firebase from 'react-native-firebase'
 import CheckButton from './buttons/CheckButton'
 import { deleteTodo } from '../redux/actions'
+import fetchNotification from '../api/notification'
 
 const styles = StyleSheet.create({
   container: {
@@ -122,7 +124,15 @@ const Todo = ({
               <MenuOption onSelect={() => setIsEditing(true)}>
                 <Text style={styles.menuOptionText}>edit</Text>
               </MenuOption>
-              <MenuOption onSelect={() => dispatch(deleteTodo(id))}>
+              <MenuOption
+                onSelect={async () => {
+                  dispatch(deleteTodo(id))
+                  await fetchNotification('Todolist', 'todo is deleted')
+                  firebase.analytics().logEvent('delete_todo', {
+                    custom_param: id,
+                  })
+                }}
+              >
                 <Text style={styles.menuOptionText}>delete</Text>
               </MenuOption>
             </MenuOptions>
